@@ -1,7 +1,8 @@
 class Employer < ActiveRecord::Base
   include Authentication
-  before_save :generate_verifications_tokens
-  after_save  :sent_verifications
+
+  
+
 
 
   validates :name, presence: true

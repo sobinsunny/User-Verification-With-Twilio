@@ -14,7 +14,7 @@ module Authentication
   def generate_email_token
     begin
     self.email_token = SecureRandom.urlsafe_base64.to_s
-    self.is_email_verified= false
+    self.is_email_verified = false
   end while self.class.exists?(email_token: email_token)
   end
 
@@ -52,15 +52,12 @@ module Authentication
                                      to: from,
                                      body: body)
    rescue Twilio::REST::RequestError => e
-      puts e
+     puts e
    end
   end
 
   def sent_verifications
-    begin
-      EmployerMailer.conform_registration(self).deliver_now
-    rescue  Net::SMTPAuthenticationError,Net::SMTPUnknownError => e
-
-    end
+    EmployerMailer.conform_registration(self).deliver_now
+  rescue Net::SMTPAuthenticationError, Net::SMTPUnknownError => e
   end
 end

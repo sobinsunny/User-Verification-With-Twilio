@@ -53,42 +53,42 @@ class EmployersController < ApplicationController
   def authenticate_phone_number
     @employer = Employer.find_by_phone_token(params[:code])
     if @employer
-        if @employer.is_phone_verified
-          flash[:info] = 'Your Phone Number already validated'
-        else
-          @employer.mark_phone_number_as_verified
-          flash[:sucess] = 'Your Phone sucessfullly validated'
-        end
-        session[:employer_id] = @employer.id
-        redirect_to @employer
+      if @employer.is_phone_verified
+        flash[:info] = 'Your Phone Number already validated'
+      else
+        @employer.mark_phone_number_as_verified
+        flash[:sucess] = 'Your Phone sucessfullly validated'
+      end
+      session[:employer_id] = @employer.id
+      redirect_to @employer
     else
       flash[:error] = 'Invalid Authentication'
       redirect_to root_path
    end
   end
 
-  def conform_phone_number 
+  def conform_phone_number
   end
 
   def home
   end
 
- def sign_in
-   @employer = Employer.find_by_email(params[:email])
-   if @employer.present?
-         if @employer.is_authenticated_user?
-            session[:employer_id] = @employer.id
-            flash[:sucess] = 'Login Succesful'
-            redirect_to @employer 
-         else
-           flash[:error] = 'You are not verified Email or Phone Number'
-           redirect_to root_path
-         end
-   else
-        flash[:error] = 'Invalid Email'
+  def sign_in
+    @employer = Employer.find_by_email(params[:email])
+    if @employer.present?
+      if @employer.is_authenticated_user?
+        session[:employer_id] = @employer.id
+        flash[:sucess] = 'Login Succesful'
+        redirect_to @employer
+      else
+        flash[:error] = 'You are not verified Email or Phone Number'
         redirect_to root_path
-   end
- end
+      end
+    else
+      flash[:error] = 'Invalid Email'
+      redirect_to root_path
+    end
+  end
 
   def sign_out
     @current_employer = session[:employer_id] = nil

@@ -1,4 +1,5 @@
-<%= form_for(@employer) do |f| %>
+<div style="width:70%"> 
+<%= form_for @employer,:html=>{:class=>'form-horizontal'} do |f| %>
   <% if @employer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@employer.errors.count, "error") %> prohibited this employer from being saved:</h2>
@@ -11,27 +12,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name,:class=>"form-control input-md" %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email,:class=>"form-control input-md" %>
   </div>
-  <div class="field">
-    <%= f.label :dob %><br>
-    <%= f.text_field :dob %>
+  <div class="form-group">
+    <%= f.label :dob %>
+    <%= f.date_select :dob,start_year: 1980 %>
   </div>
-  <div class="field">
-    <%= f.label :location %><br>
-    <%= f.text_field :location %>
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location,:class=>"form-control input-md" %>
   </div>
-  <div class="field">
-    <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number %>
+  <div class="form-group">
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number,:class=>"form-control input-md" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit",:class=>'btn btn-primary'%>
+    <%=link_to "Back",root_path,:class=>"btn btn-info"%>
   </div>
 <% end %>

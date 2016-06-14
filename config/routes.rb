@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
-  resources :employers do 
-     member do
-        get  'authenticate_email'
+  resources :employers do
+    member do
+      get 'authenticate_email'
     end
-     collection do
-       get  'conform_phone_number'
-       post 'authenticate_phone_number'
-     end
+    collection do
+      get  'conform_phone_number'
+      post 'authenticate_phone_number'
+      post 'sign_in'
+      get  'sign_out'
+      get  'home'
+    end
   end
-       
 
-  root 'employers#new'
+  root 'employers#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

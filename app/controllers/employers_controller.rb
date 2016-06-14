@@ -27,7 +27,7 @@ class EmployersController < ApplicationController
     @employer = Employer.new(employer_params)
     if @employer.save
       flash[:sucess] = 'Employer created'
-      redirect_to @employer
+      redirect_to conform_phone_number_employers_path
     else
       render :new
     end
@@ -35,40 +35,64 @@ class EmployersController < ApplicationController
 
   def authenticate_email
     @employer = Employer.find_by_email_token(params[:id])
-      if @employer
-        unless @employer.is_email_verified
-           @employer.mark_email_as_verified
-           flash[:sucess] = 'Your Email sucessfullly validated' 
-        else
-           flash[:info] = 'Your Email already validated'
-        end
-        redirect_to @employer
-     else
+    if @employer
+      if @employer.is_email_verified
+        flash[:info] = 'Your Email already validated'
+      else
+        @employer.mark_email_as_verified
+        flash[:sucess] = 'Your Email sucessfullly validated'
+      end
+      session[:employer_id] = @employer.id
+      redirect_to @employer
+    else
       flash[:error] = 'Invalid Authentication'
       redirect_to root_path
-     end 
-  end 
-
-  def authenticate_phone_number
-     @employer = Employer.find_by_phone_token(params[:code])
-     
-      if @employer
-        unless @employer.is_phone_verified
-           @employer.mark_phone_number_as_verified
-           flash[:sucess] = 'Your Phone sucessfullly validated'
-        else
-           flash[:info] = 'Your Phone Number already validated'   
-         end
-        redirect_to @employer
-     else
-      flash[:error] = 'Invalid Authentication'
-      redirect_to root_path
-     end 
-
+   end
   end
 
-  def conform_phone_number
-  
+  def authenticate_phone_number
+    @employer = Employer.find_by_phone_token(params[:code])
+    if @employer
+        if @employer.is_phone_verified
+          flash[:info] = 'Your Phone Number already validated'
+        else
+          @employer.mark_phone_number_as_verified
+          flash[:sucess] = 'Your Phone sucessfullly validated'
+        end
+        session[:employer_id] = @employer.id
+        redirect_to @employer
+    else
+      flash[:error] = 'Invalid Authentication'
+      redirect_to root_path
+   end
+  end
+
+  def conform_phone_number 
+  end
+
+  def home
+  end
+
+ def sign_in
+   @employer = Employer.find_by_email(params[:email])
+   if @employer.present?
+         if @employer.is_authenticated_user?
+            session[:employer_id] = @employer.id
+            flash[:sucess] = 'Login Succesful'
+            redirect_to @employer 
+         else
+           flash[:error] = 'You are not verified Email or Phone Number'
+           redirect_to root_path
+         end
+   else
+        flash[:error] = 'Invalid Email'
+        redirect_to root_path
+   end
+ end
+
+  def sign_out
+    @current_employer = session[:employer_id] = nil
+    redirect_to root_path
   end
 
   # PATCH/PUT /employers/1

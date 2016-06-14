@@ -3,7 +3,7 @@ class CreateEmployers < ActiveRecord::Migration
     create_table :employers do |t|
       t.string :name, null: false
       t.string :email
-      t.string :dob
+      t.datetime :dob
       t.string :location
       t.string :phone_number
       t.string :email_token

@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_160_613_154_414) do
-  create_table 'employers', force: :cascade do |t|
-    t.string   'name', null: false
-    t.string   'email'
-    t.string   'dob'
-    t.string   'location'
-    t.string   'phone_number'
-    t.string   'email_token'
-    t.string   'phone_token'
-    t.boolean  'is_email_verified', default: false
-    t.boolean  'is_phone_verified', default: false
-    t.datetime 'created_at',                        null: false
-    t.datetime 'updated_at',                        null: false
+ActiveRecord::Schema.define(version: 20160613154414) do
+
+  create_table "employers", force: :cascade do |t|
+    t.string   "name",                              null: false
+    t.string   "email"
+    t.datetime "dob"
+    t.string   "location"
+    t.string   "phone_number"
+    t.string   "email_token"
+    t.string   "phone_token"
+    t.boolean  "is_email_verified", default: false
+    t.boolean  "is_phone_verified", default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
+
 end

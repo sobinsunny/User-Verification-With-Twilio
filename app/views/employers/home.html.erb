@@ -1,0 +1,9 @@
+<%=form_for "email",:url=>{:action=>"sign_in"} do |f|%>
+	<div class="form-group">
+	    <%= label_tag "Email" %>  : 
+	   <%=text_field_tag "email" ,'',:placeholder=>"Enter your email"%>
+	</div>
+	 <%= submit_tag "Login", class: "btn btn-primary btn-lg" %>
+<%end%>
+<%=link_to "Registration",new_employer_path%>
+<%= link_to ' Msg verification', conform_phone_number_employers_path %>

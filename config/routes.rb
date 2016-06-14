@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   resources :employers do 
      member do
-        get 'authenticate_email'
+        get  'authenticate_email'
     end
+     collection do
+       get  'conform_phone_number'
+       post 'authenticate_phone_number'
+     end
   end
-
+       
 
   root 'employers#new'
   # The priority is based upon order of creation: first created -> highest priority.

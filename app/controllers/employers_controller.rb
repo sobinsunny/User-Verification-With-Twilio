@@ -25,50 +25,67 @@ class EmployersController < ApplicationController
   # POST /employers.json
   def create
     @employer = Employer.new(employer_params)
-
-    respond_to do |format|
-      if @employer.save
-        EmployerMailer.conform_registration(@employer).deliver_now
-        format.html { redirect_to @employer, notice: 'Employer was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @employer.save
+      flash[:sucess] = 'Employer created'
+      redirect_to @employer
+    else
+      render :new
     end
   end
 
   def authenticate_email
-      @employer = Employer.verify_email_token(params[:id])
-      respond_to do |format|
-          if @employer
-           format.html { redirect_to @employer, notice: 'Vaerified u r mail.' }
-         else
-            format.text { 'Failed.' }
-         end 
-      end
+    @employer = Employer.find_by_email_token(params[:id])
+      if @employer
+        unless @employer.is_email_verified
+           @employer.mark_email_as_verified
+           flash[:sucess] = 'Your Email sucessfullly validated' 
+        else
+           flash[:info] = 'Your Email already validated'
+        end
+        redirect_to @employer
+     else
+      flash[:error] = 'Invalid Authentication'
+      redirect_to root_path
+     end 
   end 
+
+  def authenticate_phone_number
+     @employer = Employer.find_by_phone_token(params[:code])
+     
+      if @employer
+        unless @employer.is_phone_number_verified
+           @employer.mark_phone_number_as_verified
+           flash[:sucess] = 'Your Phone sucessfullly validated'
+        else
+           flash[:info] = 'Your Phone Number already validated'   
+         end
+        redirect_to @employer
+     else
+      flash[:error] = 'Invalid Authentication'
+      redirect_to root_path
+     end 
+
+  end
+
+  def conform_phone_number
+  
+  end
 
   # PATCH/PUT /employers/1
   # PATCH/PUT /employers/1.json
   def update
-    # respond_to do |format|
-    #   if @employer.update(employer_params)
-    #     format.html { redirect_to @employer, notice: 'Employer was successfully updated.' }
-    #     format.json { render :show, status: :ok, location: @employer }
-    #   else
-    #     format.html { render :edit }
-    #     format.json { render json: @employer.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @employer.update(employer_params)
+        format.html { redirect_to @employer, notice: 'Employer was successfully updated.' }
+        format.json { render :show, status: :ok, location: @employer }
+      else
+        format.html { render :edit }
+        format.json { render json: @employer.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
-  # DELETE /employers/1
-  # DELETE /employers/1.json
   def destroy
-    # @employer.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to employers_url, notice: 'Employer was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
   end
 
   private

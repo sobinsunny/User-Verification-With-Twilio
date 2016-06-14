@@ -53,7 +53,7 @@ class EmployersController < ApplicationController
      @employer = Employer.find_by_phone_token(params[:code])
      
       if @employer
-        unless @employer.is_phone_number_verified
+        unless @employer.is_phone_verified
            @employer.mark_phone_number_as_verified
            flash[:sucess] = 'Your Phone sucessfullly validated'
         else

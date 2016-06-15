@@ -79,7 +79,7 @@ class EmployersController < ApplicationController
         flash[:sucess] = 'Login Succesful'
         redirect_to @employer
       else
-        flash[:error] = 'You are not verified Email or Phone Number'
+        flash[:error] = 'You are not verified Email and Phone Number'
         redirect_to root_path
       end
     else

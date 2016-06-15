@@ -1,12 +1,10 @@
 
-
-<%link_to "Sign out" sign_out_employers_path%>
-
+<div>
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Employers</h1>
 
-<table>
+<table  class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,9 +12,6 @@
       <th>Dob</th>
       <th>Location</th>
       <th>Phone number</th>
-      <th>Phone token</th>
-      <th>Is email verified</th>
-      <th>Is phone verified</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,19 +21,12 @@
       <tr>
         <td><%= employer.name %></td>
         <td><%= employer.email %></td>
-        <td><%= employer.dob %></td>
+        <td><%= employer.dob.to_date %></td>
         <td><%= employer.location %></td>
-        <td><%= employer.phone_number %></td>
-        <td><%= employer.phone_token %></td>
-        <td><%= employer.is_email_verified %></td>
-        <td><%= employer.is_phone_verified %></td>
+        <td><%= employer.phone_number%></td>
         <td><%= link_to 'Show', employer %></td>
         <td><%= link_to 'Edit', edit_employer_path(employer) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Employer', new_employer_path %>

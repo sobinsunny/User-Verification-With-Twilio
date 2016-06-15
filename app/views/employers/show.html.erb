@@ -1,46 +1,48 @@
-<%link_to "Sign out" sign_out_employers_path%>
 
-<p id="notice"><%= notice %></p>
+<div class="container">
+      <div class="row">
+      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+           <A href="edit.html" > <%= link_to 'Edit', edit_employer_path(@employer) %> </a></A>
 
-<p>
-  <strong>Name:</strong>
-  <%= @employer.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @employer.email %>
-</p>
-
-<p>
-  <strong>Dob:</strong>
-  <%= @employer.dob %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @employer.location %>
-</p>
-
-<p>
-  <strong>Phone number:</strong>
-  <%= @employer.phone_number %>
-</p>
-
-<p>
-  <strong>Phone token:</strong>
-  <%= @employer.phone_token %>
-</p>
-
-<p>
-  <strong>Is email verified:</strong>
-  <%= @employer.is_email_verified %>
-</p>
-
-<p>
-  <strong>Is phone verified:</strong>
-  <%= @employer.is_phone_verified %>
-</p>
-
-<%= link_to 'Edit', edit_employer_path(@employer) %> |
-<%= link_to 'Back', employers_path %>
+        <A href="edit.html" ><%=link_to "Sign out",sign_out_employers_path%></A>
+       <br>
+      </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= @employer.name %></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>date of Birth:</td>
+                        <td><%= @employer.dob.to_date%></td>
+                      </tr>
+                      <tr>
+                        <td>Location </td>
+                        <td><%= @employer.location%></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><%= @employer.email %></td>
+                      </tr>
+                        <td>Phone Number</td>
+                        <td>
+                        <%= @employer.phone_number %>
+                        </td>
+                           
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+              
+                </div>
+              </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>

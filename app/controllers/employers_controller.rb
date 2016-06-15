@@ -42,12 +42,11 @@ class EmployersController < ApplicationController
         @employer.mark_email_as_verified
         flash[:sucess] = 'Your Email sucessfullly validated'
       end
-      session[:employer_id] = @employer.id
-      redirect_to @employer
+      # session[:employer_id] = @employer.id
     else
       flash[:error] = 'Invalid Authentication'
-      redirect_to root_path
-   end
+     end
+    redirect_to root_path
   end
 
   def authenticate_phone_number
@@ -59,12 +58,11 @@ class EmployersController < ApplicationController
         @employer.mark_phone_number_as_verified
         flash[:sucess] = 'Your Phone sucessfullly validated'
       end
-      session[:employer_id] = @employer.id
-      redirect_to @employer
+      # session[:employer_id] = @employer.id
     else
       flash[:error] = 'Invalid Authentication'
-      redirect_to root_path
-   end
+    end
+    redirect_to root_path
   end
 
   def conform_phone_number

@@ -31,7 +31,7 @@ module Authentication
   end
 
   def from
-    number = '207 518-7503'
+    ENV['FROM']
   end
 
   def to
@@ -49,7 +49,7 @@ module Authentication
 
     begin
      @twilio.account.messages.create(from: from,
-                                     to: from,
+                                     to: to,
                                      body: body)
    rescue Twilio::REST::RequestError => e
      puts e

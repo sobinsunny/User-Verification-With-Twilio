@@ -23,7 +23,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'twilio-ruby'
 
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -39,6 +38,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails', '~>4.7.0'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 group :production do
   gem 'pg'

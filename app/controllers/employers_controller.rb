@@ -1,10 +1,10 @@
 class EmployersController < ApplicationController
-  before_action :set_employer, only: [:show, :edit, :update, :destroy]
+  before_action :load_employer, only: [:show, :edit, :update, :destroy]
 
   # GET /employers
   # GET /employers.json
   def index
-    @employers = Employer.all
+   
   end
 
   # GET /employers/1
@@ -14,7 +14,7 @@ class EmployersController < ApplicationController
 
   # GET /employers/new
   def new
-    @employer = Employer.new
+    build_employer
   end
 
   # GET /employers/1/edit
@@ -24,7 +24,7 @@ class EmployersController < ApplicationController
   # POST /employers
   # POST /employers.json
   def create
-    @employer = Employer.new(employer_params)
+    build_employer
     if @employer.save
       flash[:sucess] = 'Employer created'
       redirect_to conform_phone_number_employers_path
@@ -112,13 +112,27 @@ class EmployersController < ApplicationController
 
   private
 
+  def load_employers
+    @employers ||= employers_scoped.to_a
+  end 
   # Use callbacks to share common setup or constraints between actions.
-  def set_employer
+  def load_employer
     @employer = Employer.find(params[:id])
+  end
+
+  def build_employer
+    @employer ||= Employer.build
+    @employer.attributes = employer_params
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def employer_params
-    params.require(:employer).permit(:name, :email, :dob, :location, :phone_number)
+    employer_params= params[:employer]
+    employer_params.present? ? permit(:name, :email, :dob, :location, :phone_number) : {}
   end
+
+  def employer_scoped
+      Employer.scoped
+  end
+
 end

@@ -6,13 +6,18 @@ Rails.application.routes.draw do
     collection do
       get  'conform_phone_number'
       post 'authenticate_phone_number'
+    end
+  end
+
+  resources :employer_sessions, only: [] do
+    collection do
       post 'sign_in'
       get  'sign_out'
       get  'home'
     end
   end
 
-  root 'employers#home'
+  root 'employer_sessions#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

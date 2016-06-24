@@ -36,11 +36,11 @@ RSpec.describe Employer, type: :model do
     @employer.save
     expect(@employer.is_email_verified).not_to eq(nil)
   end
-   it 'should add  email after save' do
+  it 'should add  email after save' do
     @employer.save
     expect(@employer.email_token).not_to eq(nil)
   end
-   it 'should add phone token after save' do
+  it 'should add phone token after save' do
     @employer.save
     expect(@employer.phone_token).not_to eq(nil)
   end

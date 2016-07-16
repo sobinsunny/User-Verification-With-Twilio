@@ -21,7 +21,8 @@ class EmployerSessionsController < ApplicationController
     redirect_to root_path
   end
 
-private
+  private
+
   def find_employer
     puts params[:email]
     @employer ||= Employer.find_by_email(params[:email])

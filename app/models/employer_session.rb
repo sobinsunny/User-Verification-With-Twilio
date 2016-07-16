@@ -1,7 +1,7 @@
 class EmployerSesssion < ActiveType::Object
-  attributes :email, :string
-  atrributes :phone_number, :string
-  validate   :email, presence: true, message: 'Email Required'
+  attribute :email, :string
+  attribute :phone_number, :string
+  validates  :email, presence: true
 
   def self.employer(email)
     Employer.sign_in(email)

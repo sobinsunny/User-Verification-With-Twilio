@@ -61,23 +61,6 @@ class EmployersController < ApplicationController
   def home
   end
 
-  def sign_in
-    @employer = Employer.find_by_email(params[:email])
-    if @employer.present?
-      if @employer.is_authenticated_user?
-        session[:employer_id] = @employer.id
-        flash[:sucess] = 'Login Succesful'
-        redirect_to @employer
-      else
-        flash[:error] = 'You are not verified Email and Phone Number'
-        redirect_to root_path
-      end
-    else
-      flash[:error] = 'Invalid Email'
-      redirect_to root_path
-    end
-  end
-
   # PATCH/PUT /employers/1
   # PATCH/PUT /employers/1.json
   def update
@@ -113,7 +96,7 @@ class EmployersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def employer_params
     employer_params = params[:employer]
-    employer_params.present? ? permit(:name, :email, :dob, :location, :phone_number) : {}
+    employer_params.present? ? employer_params.permit(:name, :email, :dob, :location, :phone_number) : {}
   end
 
   def employer_scoped

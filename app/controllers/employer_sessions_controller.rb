@@ -14,19 +14,16 @@ class EmployerSessionsController < ApplicationController
       flash[:error] = 'Invalid Email'
       redirect_to root_path
      end
-      end
+  end
 
   def sign_out
     @current_employer = session[:employer_id] = nil
     redirect_to root_path
-    end
+  end
 
-  def home
- end
-
-  private
-
+private
   def find_employer
-    @employer ||= EmployerSession.find_employer(email)
+    puts params[:email]
+    @employer ||= Employer.find_by_email(params[:email])
   end
 end
